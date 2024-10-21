@@ -9,6 +9,7 @@ const User = db.User;
 
 //register
 exports.signup = async (req, res) => {
+
   const { username, password, email, address, lat, long } = req.body;
 
   const newUser = {
@@ -29,6 +30,7 @@ exports.signup = async (req, res) => {
           },
         },
       }).then((roles) => {
+
         user.setRoles(roles).then(() => {
           res.send({ message: "User was registered successfully!" });
         });
@@ -42,6 +44,8 @@ exports.signup = async (req, res) => {
     res.status(500).send({ message: err.message || "Some error occurred while creating the User." });
   });
 };
+
+
 
 //signin
 exports.signin = async (req, res) => {
@@ -81,6 +85,9 @@ exports.signin = async (req, res) => {
         id: user.id,
         username: user.username,
         email: user.email,
+        address: user.address,
+        lat: user.lat,
+        long: user.long,
         roles: authorities,
         accessToken: token,
       });

@@ -1,11 +1,17 @@
 const Store = require("../models/store.model");
+const User = require("../models/user.model");
+const { Op } = require("sequelize");
+
 
 exports.create = async (req, res) => {
-  const { storeName, address, lat, long, daliveryRadius, userId } = req.body;
-  if (!storeName || !address || !lat || !long || !daliveryRadius || !userId) {
+
+  const { storeName, address, lat, long, deliveryRadius, userId } = req.body;
+
+  if (!storeName || !address || !lat || !long || !deliveryRadius || !userId) {
     res.status(400).send({
       message: "Content can not be empty!",
     });
+
     return;
   }
   await Store.findOne({
@@ -25,7 +31,7 @@ exports.create = async (req, res) => {
     address,
     lat,
     long,
-    daliveryRadius,
+    daliveryRadius: deliveryRadius,
     userId,
   };
   await Store.create(newStore)
@@ -75,6 +81,8 @@ exports.getById = async (req, res) => {
 //update
 exports.update = async (req, res) => {
   const id = req.params.id;
+  console.log(req.body);
+
   await Store.update(req.body, {
     where: { id: id },
   })
