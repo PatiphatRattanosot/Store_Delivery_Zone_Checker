@@ -15,7 +15,7 @@ router.get("/", StoreController.getAll)
 router.get(("/:id"), [authJWT.vertifyToken], StoreController.getById)
 
 //Update Store By Id
-router.put(("/:id"), [authJWT.vertifyToken, vertifyStore.checkStoreName, authJWT.isAdmin], StoreController.update)
+router.put(("/:id"), [authJWT.vertifyToken, authJWT.isAdmin], StoreController.update)
 
 //Delete Store By Id
 router.delete(("/:id"), [authJWT.vertifyToken, authJWT.isAdmin], StoreController.delete)
